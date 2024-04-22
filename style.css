@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Jacquard+24&display=swap');
+
+@font-face {
+  font-family: "System-ui";
+  src: url(./asset/fonts/Jacquard24-Regular.ttf);
+}
+
+body {
+  font-family: "System-ui";
+  background: url(./asset/img/bg.png) center/cover;
+  /* VH = 100% de la taille de l'ecran */
+  min-height: 100vh;
+}
+
+/* *{
+  margin: 0;
+  padding: 0;
+} */
+
+h1 {
+  /* text transform et pour le mode de texte par exemple uppercase c'est pour tout mettre en majuscule */
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-align: center;
+  /* les taille de police doivent etre en REM */
+  font-size: 8vw;
+  text-shadow: 3px 3px 8px #0000005c;
+  color: rgba(140, 10, 29, 0.836);
+  text-decoration: underline;
+  font-family: "Jacquard 24", system-ui;
+}
+
+li {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow', sans-serif;
+}
+
+main {
+  min-height: 500px;
+  width: 90%;
+  background: rgba(247, 247, 247, 0.74);
+  /* centrer une boite  */
+  margin: 0 auto;
+  border-radius: 20px 0 20px 0;
+  border: 1px solid rgba(0, 0, 0, 0.185);
+  box-shadow: 0 0 20px 5px #795548;
+  padding: 10px 10px 50px 10px;
+}
+
+h2 {
+  margin: 0;
+}
+
+.flexbox,
+.grid,
+.absolute {
+  border: 2px solid lightgray;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 20px;
+  background: rgba(211, 211, 211, 0.233);
+  min-height: 150px;
+}
+
+/* FLEXBOX  */
+/* Sert  répartir équitablement des éléments sur la page  */
+.flexbox ul {
+  padding: 0;
+  display: flex;
+}
+
+.flexbox li {
+  list-style: none;
+  height: 160px;
+  width: 180px;
+  margin: 10px;
+  background: rgba(211, 211, 211, 0.493);
+  border-radius: 4px;
+  /* centrer un unique élément verticalement et horizontalement */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* GRID  */
+.grid-container {
+  display: grid;
+  grid-template-columns: 30% 70%;
+}
+
+.grid img {
+  width: 80%;
+  margin: 20px auto;
+  display: block;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas:
+    "il i2"
+    "ta ta"
+    "vi bt";
+}
+
+input,
+textarea {
+  margin: 5px;
+  border: 1px solid darkblue;
+  padding: 10px;
+  font-size: 1.1rem;
+  font-family: "DMSerif";
+  border-radius: 4px;
+}
+
+textarea {
+  grid-area: ta;
+  height: 40px;
+  resize: none;
+}
+
+#btn-submit {
+  grid-area: bt;
+  cursor: pointer;
+  background: rgba(128, 128, 128, 0.527);
+  transition: 0.2s;
+}
+
+#btn-submit:hover {
+  background: rgba(211, 211, 211, 0.26);
+}
+
+/* ABSOLUTE  */
+/* Il faut mettre une position relative au parent pour contraindre l'éléments en absolute dans ses frontiere  */
+.absolute {
+  position: relative;
+}
+
+#circle1 {
+  height: 80px;
+  width: 80px;
+  background: rgb(56, 73, 80);
+  position: absolute;
+  border-radius: 150px;
+  top: 0;
+  right: 0;
+
+}
+
+#circle2 {
+  height: 40px;
+  width: 40px;
+  border-radius: 150px;
+  background: rgb(163, 157, 157);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* RESPONSIBLE  */
+@media screen and (max-width: 900px) {
+  .grid-container {
+    display: block;
+  }
+
+  .grid-container img {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 610px) {
+  form {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas:
+      "il"
+      "i2"
+      "ta"
+      "bt";
+  }
+
+  input,
+  textarea {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 310px) {
+  .flexbox ul {
+    flex-direction: column;
+    align-items: center;
+  }
+}
