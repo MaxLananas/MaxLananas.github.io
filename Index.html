@@ -1,391 +1,233 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>I-prof</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="script.js"></script>
-  </head>
-  <body>
-    <!-- Ouverture de la barre Horizontale en haut de l'ecran -->
-    <header>
-      <div class="user-info">
-        <p><strong>Ponche Maxence</strong></p>
-        <p><strong>Professeur de technologie</strong></p>
-      </div>
-      <div class="buttons">
-        <button class="btn-grad QuiAi">Aide</button>
-        <button class="btn-grad QuiAi">Quitter</button>
-      </div>
-    </header>
-    <!-- Fermeture de la barre Horizontale en haut de l'ecran -->
-    <br />
-    <main>
-      <!-- Ouverture de la barre latérale  -->
-      <div class="id1">
-        <img
-          src="./Asset/Image/Ministere.png"
-          alt="Logo I-prof"
-          height="150px"
-        />
-        <button class="btn-grad" onclick="toggleFlexbox('flexbox1')">
-          Accueil
-        </button>
-        <button class="btn-grad active" onclick="toggleFlexbox('flexbox2')">
-          Messagerie
-        </button>
-        <button class="btn-grad" onclick="toggleFlexbox('flexbox3')">
-          Votre Dossier
-        </button>
-        <button class="btn-grad" onclick="toggleFlexbox('flexbox4')">
-          Vos perspectives
-        </button>
-        <button class="btn-grad" onclick="toggleFlexbox('flexbox5')">
-          Votre CV
-        </button>
-        <button class="btn-grad" onclick="toggleFlexbox('flexbox6')">
-          Les services
-        </button>
-        <!-- Fermeture de la barre latérale  -->
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alphabets</title>
+    <style>
+        :root {
+            --bg-color: #000000;
+            --star-color: white;
+            --table-bg: rgba(255, 255, 255, 0.1);
+            --header-bg: linear-gradient(135deg, #ff6f61, #d34a6a);
+            --header-text-color: white;
+            --star-opacity-min: 0.3;
+            --star-opacity-max: 0.8;
+            --star-size-min: 1px;
+            --star-size-max: 4px;
+            --text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+        }
 
-        <!-- Ouverture de l'Accueil -->
-        <div class="flexbox flexbox1" style="display: none">
-          <h1><strong>Bienvenue Maxence Ponche</strong></h1>
-          <h3>Professeur de technologie</h3>
-          <p>
-            Bienvenue sur I-prof, votre espace personnel pour gérer votre
-            carrière professionnelle.
-          </p>
-          <p>
-            Vous pouvez accéder aux différentes fonctionnalités à l'aide des
-            boutons sur le côté.
-          </p>
-          <div class="image-and-text">
-            <img src="./Asset/Image/ordinateur.png" height="150px" />
-            <p>
-              <strong>I-Prof</strong>, votre compagnon de carrière, est conçu
-              pour être accessible sur n'importe quel appareil. Que vous
-              utilisiez un <strong>ordinateur de bureau</strong>, une
-              <strong>tablette</strong> ou un
-              <strong>téléphone portable</strong>, vous pouvez accéder à toutes
-              les fonctionnalités et ressources de notre plateforme où que vous
-              soyez. Notre engagement envers une expérience
-              <strong>utilisateur fluide</strong> et
-              <strong>adaptative</strong> signifie que vous pouvez gérer votre
-              carrière professionnelle en <strong>toute simplicité</strong>, peu
-              importe le dispositif que vous utilisez.
-            </p>
-          </div>
-          <hr style="border: none; border-top: 3px solid #00000059; width: 90%; border-radius: 50px;"/>
-          <br>
-          <div class="image-and-text">
-            <p style="margin-left: 10px">
-              Avez-vous une <strong>suggestion</strong> à partager ou
-              <strong>rencontrez-vous un problème</strong> que nous devrions
-              connaître ? Nous sommes toujours à <strong>l'écoute</strong> de
-              vos retours pour
-              <strong>améliorer votre expérience sur I-Prof</strong>. Que ce
-              soit une idée pour une <strong>nouvelle fonctionnalité</strong>,
-              une <strong>amélioration</strong> à apporter à une fonction
-              existante ou même <strong>un bug que vous avez rencontré</strong>,
-              n'hésitez pas à nous en faire part !
-            </p>
-            <img
-              src="./Asset/Image/Suggestion.png"
-              height="150px"
-              style="margin-right: 80px"
-            />
-          </div>
-        </div>
-        <!-- Fermeture de l'Accueil -->
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle, var(--bg-color), #002b36);
+            color: #fff;
+            text-align: center;
+            position: relative;
+        }
 
-        <!-- Ouverture de la Messagerie  -->
-        <div class="flexbox flexbox2">
-          <h1 class="message-title">Messagerie</h1>
-          <div class="button-container">  <!-- Add a container for the buttons -->
-            <button class="btn-reception" onclick="reception()">Boite de réception</button>
-            <button class="btn-compose" onclick="writeEmail()">Écrire un mail</button>
-            <button class="btn-message" onclick="message_envoyée()">Message(s) Envoyé(s)</button>
-            <button class="btn-corbeille" onclick="corbeille()">Corbeille</button>
-          </div>
-          <div id="compose-form" class="compose-form" style="display: none">
-            <h2>Composez un nouveau mail</h2>
-            <input type="text" id="email-title" placeholder="Titre">
-            <input type="text" id="email-date" readonly>
-            <textarea id="email-description" placeholder="Description"></textarea>
-            <button onclick="sendEmail()">Envoyer</button>
-          </div>
-          <div class="message-container">
-            <div class="message">
-              <div class="message-header">
-                <h4>Reprogrammation d'Iprof</h4>
-                <p>De: Maxence Ponche - Date: 11 mai 2024</p>
-                <img src="./Asset/Image/Poubelle.png" alt="Supprimer" class="delete-icon">
-              </div>
-            </div>
-            <div class="message">
-              <div class="message-header">
-                <h4>Lettre D'Information</h4>
-                <p>De: Ministere de l'education nationale - Date: 10 mai 2024</p>
-                <img src="./Asset/Image/Poubelle.png" alt="Supprimer" class="delete-icon">
-              </div>
-            </div>
-            <div class="message">
-              <div class="message-header">
-                <h4>Ouverture du Mouvement</h4>
-                <p>De: Gestion Collective - Date: 9 mai 2024</p>
-                <img src="./Asset/Image/Poubelle.png" alt="Supprimer" class="delete-icon">
-              </div>
-            </div>
-            <div class="message">
-              <div class="message-header">
-                <h4>Guadeloupe Territoire Numérique Educatif</h4>
-                <p>De: Déleguation académique au numérique - Date: 8 mai 2024</p>
-                <img src="./Asset/Image/Poubelle.png" alt="Supprimer" class="delete-icon">
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Fermeture de la Messagerie  -->
+        .background-stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: transparent;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
 
-        <!-- Ouverture de Votre Dossier  -->
-        <div class="flexbox flexbox3" style="display: none">
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Synthèse')" onclick="toggleFlexbox('Identitée')">Synthèse</button>
-          <nav>
-            <ul>
-              <li class="deroulant">
-                <a class="btn-grad" href="#">Carrière &ensp;</a>
-                <ul class="sous btn-grad">
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('CoGrEc')">Corps / Grades / Echelons</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('PosiEtCong')">Positions et congés</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('ModaDesServ')">Modalités des services</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('Notation')">Notation</a></li>
-                </ul>
-              </li>
-            </ul>
-          </nav>                   
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Affectation')">Affectation</button>
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Anciénnetée')">Anciennetés</button>
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Situation-Particuliére')">Situation Particuliére</button>
-          <h1 class="id10">Votre Dossier</h1>
-          <p class="id11">Accédez à une source complète et centralisée de toutes vos informations personnelles et professionnelles. Ici, vous pourrez consulter en toute simplicité les détails de votre carrière, suivre votre parcours professionnel, vos promotions, vos évolutions de poste, et vos formations continues. Visualisez vos affectations actuelles et antérieures, avec des informations détaillées sur chaque position occupée. Gardez vos informations de contact et vos données personnelles à jour et accessibles en un clic.</p>
-          <img src="./Asset/Image/Dossiers_sur_table.png" class="id11 imgDos" height="150px">
-          <hr style="border: none; border-top: 3px solid #00000059; width: 90%; border-radius: 50px;" class="id10 id12"/>
-        </div>
-        
-        <!-- Fermeture de Votre Dossier  -->
+        .star {
+            position: absolute;
+            background: var(--star-color);
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: twinkling 1.5s infinite alternate;
+        }
 
-        <div class="flexbox flexbox4" style="display: none">
-          <p>vos perspectives</p>
-        </div>
-        <div class="flexbox flexbox5" style="display: none">
-          <p>votre cv</p>
-        </div>
-        <div class="flexbox flexbox6" style="display: none">
-          <p>les services</p>
-        </div>
-        <div class="flexbox Synthèse" style="display: none">
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Synthèse')">Synthèse</button>
-          <nav>
-            <ul>
-              <li class="deroulant">
-                <a class="btn-grad" href="#">Carrière &ensp;</a>
-                <ul class="sous btn-grad">
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('CoGrEc')">Corps / Grades / Echelons</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('PosiEtCong')">Positions et congés</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('ModaDesServ')">Modalités des services</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('Notation')">Notation</a></li>
-                </ul>
-              </li>
-            </ul>
-          </nav>                   
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Affectation')">Affectation</button>
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Anciénnetée')">Anciennetés</button>
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Situation-Particuliére')">Situation Particuliére</button>
-          <h1 class="id10">Synthèse</h1>
-          <div class="Identitée div1">
-            <h2 class="id13-1">Identitée</h2>
-            <p class="id14"><strong>Nom/Prénom :</strong> Mr.Ponche Maxence</p>
-            <p class="id15-1"><strong>Né(e) le :</strong> 17/11/1987</p>
-            <p class="id16-1"><strong>Numen :</strong> A3f5G7h9K2</p>
-          </div>
-          <div class="Votre-Adresse div2">
-            <h2 class="id13-2">Votre Adresse</h2>
-            <p class="id14"><strong>Pays / Ville / Lieu dit :</strong> Guadeloupe, Saint-Anne, Lieu dit cinq-etang</p>
-            <p class="id15-2"><strong>Portable :</strong> +590 690 98-1315</p>
-            <p class="id16-2"><strong>Mail personnel :</strong> maxenceponche971@gmail.com</p>
-            <p class="id17-1"><strong>Mail professionnel :</strong> maxenceponche971@ac-guadeloupe.fr</p>
-          </div>
-          <div class="Affectation div3">
-            <h2 class="id13-3">Vos Affectation / Situation administrative<h2>
-            <p class="id14-2"><strong>Nom de l'etablissement :</strong> Collége Olympe Ramé Decorbin</p>
-            <p class="id15-3"><strong>Corps / Grades :</strong> Fonctionnaire de l'Education Nationale en tant que professeur de technologie de hors classe</p>
-            <p class="id16-3"><strong>Échelons :</strong> 7</p>
-          </div>
-        </div>
-        <div class="flexbox Affectation" style="display: none">
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Synthèse')">Synthèse</button>
-          <nav>
-            <ul>
-              <li class="deroulant">
-                <a class="btn-grad" href="#">Carrière &ensp;</a>
-                <ul class="sous btn-grad">
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('CoGrEc')">Corps / Grades / Echelons</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('PosiEtCong')">Positions et congés</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('ModaDesServ')">Modalités des services</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('Notation')">Notation</a></li>
-                </ul>
-              </li>
-            </ul>
-          </nav>                   
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Affectation')">Affectation</button>
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Anciénnetée')">Anciennetés</button>
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Situation-Particuliére')">Situation Particuliére</button>
-        </div>
-        <div class="flexbox CoGrEc" style="display: none">
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Synthèse')">Synthèse</button>
-          <nav>
-            <ul>
-              <li class="deroulant">
-                <a class="btn-grad" href="#">Carrière &ensp;</a>
-                <ul class="sous btn-grad">
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('CoGrEc')">Corps / Grades / Echelons</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('PosiEtCong')">Positions et congés</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('ModaDesServ')">Modalités des services</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('Notation')">Notation</a></li>
-                </ul>
-              </li>
-            </ul>
-          </nav>                   
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Affectation')">Affectation</button>
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Anciénnetée')">Anciennetés</button>
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Situation-Particuliére')">Situation Particuliére</button>
-        </div>
-        <div class="flexbox PosiEtCong" style="display: none">
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Synthèse')">Synthèse</button>
-          <nav>
-            <ul>
-              <li class="deroulant">
-                <a class="btn-grad" href="#">Carrière &ensp;</a>
-                <ul class="sous btn-grad">
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('CoGrEc')">Corps / Grades / Echelons</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('PosiEtCong')">Positions et congés</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('ModaDesServ')">Modalités des services</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('Notation')">Notation</a></li>
-                </ul>
-              </li>
-            </ul>
-          </nav>                   
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Affectation')">Affectation</button>
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Anciénnetée')">Anciennetés</button>
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Situation-Particuliére')">Situation Particuliére</button>
-        </div>
-        <div class="flexbox ModaDesServ" style="display: none">
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Synthèse')">Synthèse</button>
-          <nav>
-            <ul>
-              <li class="deroulant">
-                <a class="btn-grad" href="#">Carrière &ensp;</a>
-                <ul class="sous btn-grad">
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('CoGrEc')">Corps / Grades / Echelons</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('PosiEtCong')">Positions et congés</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('ModaDesServ')">Modalités des services</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('Notation')">Notation</a></li>
-                </ul>
-              </li>
-            </ul>
-          </nav>                   
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Affectation')">Affectation</button>
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Anciénnetée')">Anciennetés</button>
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Situation-Particuliére')">Situation Particuliére</button>
-        </div>
-        <div class="flexbox Notation" style="display: none">
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Synthèse')">Synthèse</button>
-          <nav>
-            <ul>
-              <li class="deroulant">
-                <a class="btn-grad" href="#">Carrière &ensp;</a>
-                <ul class="sous btn-grad">
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('CoGrEc')">Corps / Grades / Echelons</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('PosiEtCong')">Positions et congés</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('ModaDesServ')">Modalités des services</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('Notation')">Notation</a></li>
-                </ul>
-              </li>
-            </ul>
-          </nav>                   
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Affectation')">Affectation</button>
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Anciénnetée')">Anciennetés</button>
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Situation-Particuliére')">Situation Particuliére</button>
-        </div>
-        <div class="flexbox Anciénnetée" style="display: none">
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Synthèse')">Synthèse</button>
-          <nav>
-            <ul>
-              <li class="deroulant">
-                <a class="btn-grad" href="#">Carrière &ensp;</a>
-                <ul class="sous btn-grad">
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('CoGrEc')">Corps / Grades / Echelons</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('PosiEtCong')">Positions et congés</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('ModaDesServ')">Modalités des services</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('Notation')">Notation</a></li>
-                </ul>
-              </li>
-            </ul>
-          </nav>                   
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Affectation')">Affectation</button>
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Anciénnetée')">Anciennetés</button>
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Situation-Particuliére')">Situation Particuliére</button>
-        </div>
-        <div class="flexbox Situation-Particuliére" style="display: none">
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Synthèse')">Synthèse</button>
-          <nav>
-            <ul>
-              <li class="deroulant">
-                <a class="btn-grad" href="#">Carrière &ensp;</a>
-                <ul class="sous btn-grad">
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('CoGrEc')">Corps / Grades / Echelons</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('PosiEtCong')">Positions et congés</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('ModaDesServ')">Modalités des services</a></li>
-                  <li><a href="#" class="btn-grad" onclick="toggleFlexbox('Notation')">Notation</a></li>
-                </ul>
-              </li>
-            </ul>
-          </nav>                   
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Affectation')">Affectation</button>
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Anciénnetée')">Anciennetés</button>
-          <button class="btn-grad sous-menu" onclick="toggleFlexbox('Situation-Particuliére')">Situation Particuliére</button>
-        </div>
-      </div>
-    </main>
-  </body>
-  <footer>
-    <div class="footer-container">
-      <div class="footer-section">
-        <h2>À propos</h2>
-        <p>Découvrez notre plateforme I-prof, conçue pour vous aider à gérer votre carrière professionnelle de manière efficace et fluide.</p>
-      </div>
-      <div class="footer-section">
-        <h2>Liens Utiles</h2>
-        <ul>
-          <li><a href="#">Accueil</a></li>
-          <li><a href="#">Messagerie</a></li>
-          <li><a href="#">Votre Dossier</a></li>
-          <li><a href="#">Vos Perspectives</a></li>
-          <li><a href="#">Votre CV</a></li>
-          <li><a href="#">Les Services</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h2>Contact</h2>
-        <p>Email: maxenceponche971@gmail.com</p>
-        <p>Téléphone: +590 690 98-1315</p>
-      </div>
+        @keyframes twinkling {
+            from { transform: scale(1); }
+            to { transform: scale(1.5); opacity: 0.5; }
+        }
+
+        .alphabet {
+            margin: 40px auto;
+            width: 90%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            transform: perspective(1500px) rotateX(10deg);
+            animation: float 10s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% { transform: perspective(1500px) rotateX(10deg) translateY(0); }
+            50% { transform: perspective(1500px) rotateX(10deg) translateY(-20px); }
+            100% { transform: perspective(1500px) rotateX(10deg) translateY(0); }
+        }
+
+        h2 {
+            color: #fff;
+            margin: 20px;
+            font-size: 3rem;
+            text-shadow: var(--text-shadow);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        table {
+            margin: 10 auto;
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
+            background: var(--table-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 16px;
+            font-size: 1.2rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.2);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            position: relative;
+        }
+
+        th {
+            background: var(--header-bg);
+            color: var(--header-text-color);
+            font-size: 1.5rem;
+            box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        th::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            mix-blend-mode: overlay;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        th:hover::before {
+            opacity: 1;
+        }
+
+        td:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        tr:nth-child(odd) {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-stars">
+        <!-- JavaScript will create star elements here -->
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2024 I-prof. Tous droits réservés.</p>
+
+    <div class="alphabet">
+        <h2>Alphabets</h2>
+        <table>
+            <tr>
+                <th>Latin</th>
+                <th>Grec</th>
+                <th>Cyrillique</th>
+                <th>Japonais (Hiragana)</th>
+                <th>Hindi (Devanagari)</th>
+                <th>Thaïlandais</th>
+            </tr>
+            <tr><td>A</td><td>Α</td><td>А</td><td>あ</td><td>अ</td><td>ก</td></tr>
+            <tr><td>B</td><td>Β</td><td>Б</td><td>い</td><td>आ</td><td>ข</td></tr>
+            <tr><td>C</td><td>Γ</td><td>В</td><td>う</td><td>इ</td><td>ค</td></tr>
+            <tr><td>D</td><td>Δ</td><td>Г</td><td>え</td><td>ई</td><td>ฆ</td></tr>
+            <tr><td>E</td><td>Ε</td><td>Д</td><td>お</td><td>उ</td><td>ง</td></tr>
+            <tr><td>F</td><td>Ζ</td><td>Е</td><td>か</td><td>ऊ</td><td>จ</td></tr>
+            <tr><td>G</td><td>Η</td><td>Ё</td><td>き</td><td>ऋ</td><td>ฉ</td></tr>
+            <tr><td>H</td><td>Θ</td><td>Ж</td><td>く</td><td>ऌ</td><td>ช</td></tr>
+            <tr><td>I</td><td>Ι</td><td>З</td><td>け</td><td>ए</td><td>ซ</td></tr>
+            <tr><td>J</td><td>Κ</td><td>И</td><td>こ</td><td>ऐ</td><td>ฌ</td></tr>
+            <tr><td>K</td><td>Λ</td><td>Й</td><td>さ</td><td>ओ</td><td>ญ</td></tr>
+            <tr><td>L</td><td>Μ</td><td>К</td><td>し</td><td>औ</td><td>ฎ</td></tr>
+            <tr><td>M</td><td>Ν</td><td>Л</td><td>す</td><td>क</td><td>ฏ</td></tr>
+            <tr><td>N</td><td>Ξ</td><td>М</td><td>せ</td><td>ख</td><td>ฐ</td></tr>
+            <tr><td>O</td><td>Ο</td><td>Н</td><td>そ</td><td>ग</td><td>ฑ</td></tr>
+            <tr><td>P</td><td>Π</td><td>О</td><td>た</td><td>घ</td><td>ฒ</td></tr>
+            <tr><td>Q</td><td>Ρ</td><td>П</td><td>ち</td><td>ङ</td><td>ณ</td></tr>
+            <tr><td>R</td><td>Σ</td><td>Р</td><td>つ</td><td>च</td><td>ด</td></tr>
+            <tr><td>S</td><td>Τ</td><td>С</td><td>て</td><td>छ</td><td>ต</td></tr>
+            <tr><td>T</td><td>Υ</td><td>Т</td><td>と</td><td>ज</td><td>ถ</td></tr>
+            <tr><td>U</td><td>Φ</td><td>У</td><td>な</td><td>झ</td><td>ท</td></tr>
+            <tr><td>V</td><td>Χ</td><td>Ф</td><td>に</td><td>ञ</td><td>ธ</td></tr>
+            <tr><td>W</td><td>Ψ</td><td>Х</td><td>ぬ</td><td>ट</td><td>น</td></tr>
+            <tr><td>X</td><td>Ω</td><td>Ц</td><td>ね</td><td>ठ</td><td>บ</td></tr>
+            <tr><td>Y</td><td></td><td>Ч</td><td>の</td><td>ड</td><td>ป</td></tr>
+            <tr><td>Z</td><td></td><td>Ш</td><td>は</td><td>ढ</td><td>ผ</td></tr>
+            <tr><td></td><td></td><td>Щ</td><td>ひ</td><td>ण</td><td>ฝ</td></tr>
+            <tr><td></td><td></td><td>Ъ</td><td>ふ</td><td>त</td><td>พ</td></tr>
+            <tr><td></td><td></td><td>Ы</td><td>へ</td><td>थ</td><td>ฟ</td></tr>
+            <tr><td></td><td></td><td>Ь</td><td>ほ</td><td>द</td><td>ภ</td></tr>
+            <tr><td></td><td></td><td>Э</td><td>ま</td><td>ध</td><td>ม</td></tr>
+            <tr><td></td><td></td><td>Ю</td><td>み</td><td>न</td><td>ย</td></tr>
+            <tr><td></td><td></td><td>Я</td><td>む</td><td>प</td><td>ร</td></tr>
+            <tr><td></td><td></td><td>а</td><td>め</td><td>फ</td><td>ล</td></tr>
+            <tr><td></td><td></td><td>б</td><td>も</td><td>ब</td><td>ว</td></tr>
+            <tr><td></td><td></td><td>в</td><td>や</td><td>भ</td><td>ศ</td></tr>
+            <tr><td></td><td></td><td>г</td><td>ゆ</td><td>म</td><td>ษ</td></tr>
+            <tr><td></td><td></td><td>д</td><td>よ</td><td>य</td><td>ส</td></tr>
+            <tr><td></td><td></td><td>е</td><td>ら</td><td>र</td><td>ห</td></tr>
+            <tr><td></td><td></td><td>ё</td><td>り</td><td>ल</td><td>ฬ</td></tr>
+            <tr><td></td><td></td><td>ж</td><td>る</td><td>व</td><td>อ</td></tr>
+            <tr><td></td><td></td><td>з</td><td>れ</td><td>श</td><td>ฮ</td></tr>
+            <tr><td></td><td></td><td>и</td><td>ろ</td><td>ष</td><td></td></tr>
+            <tr><td></td><td></td><td>й</td><td>わ</td><td>स</td><td></td></tr>
+            <tr><td></td><td></td><td>к</td><td>を</td><td>ह</td><td></td></tr>
+            <tr><td></td><td></td><td>л</td><td>ん</td><td></td><td></td></tr>
+        </table>
     </div>
-  </footer>  
+
+    <script>
+        // Create star elements
+        const starField = document.querySelector('.background-stars');
+        const fragment = document.createDocumentFragment();
+
+        for (let i = 0; i < 200; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            const size = Math.random() * (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--star-size-max')) - parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--star-size-min'))) + parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--star-size-min'));
+            star.style.width = `${size}px`;
+            star.style.height = star.style.width;
+            star.style.top = `${Math.random() * 100}vh`;
+            star.style.left = `${Math.random() * 100}vw`;
+            star.style.opacity = Math.random() * (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--star-opacity-max')) - parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--star-opacity-min'))) + parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--star-opacity-min'));
+            fragment.appendChild(star);
+        }
+
+        starField.appendChild(fragment);
+    </script>
+</body>
 </html>
