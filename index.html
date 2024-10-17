@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archive de Souvenirs</title>
+    <style>
+        /* Styles généraux */
+        body {
+            font-family: 'Lato', sans-serif;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png'), linear-gradient(135deg, #1b2735, #090a0f);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+            color: #eee;
+        }
+        h1 {
+            color: #ffce00;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            font-family: 'Playfair Display', serif;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            max-width: 900px;
+        }
+        .photo-container {
+            position: relative;
+            width: 220px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            border: 4px solid rgba(255, 255, 255, 0.15);
+        }
+        .photo-container:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+        }
+        .photo-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+        .photo-title {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            color: #ffce00;
+            padding: 10px;
+            text-align: center;
+            font-size: 16px;
+            border-radius: 0 0 15px 15px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+        
+        /* Variantes de carte avec couleurs sobres */
+        .variant1 { border-color: rgba(255, 206, 0, 0.3); }
+        .variant2 { border-color: rgba(220, 220, 220, 0.3); }
+        .variant3 { border-color: rgba(150, 150, 200, 0.3); }
+        .variant4 { border-color: rgba(125, 175, 125, 0.3); }
+        .variant5 { border-color: rgba(240, 240, 240, 0.3); }
+        
+        /* Styles pour la boîte modale */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.4s ease;
+        }
+        .modal img {
+            max-width: 80%;
+            max-height: 80%;
+            border-radius: 15px;
+            transition: transform 0.4s ease;
+        }
+        .modal.show img {
+            transform: scale(1.05);
+        }
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            font-size: 40px;
+            color: #ffce00;
+            cursor: pointer;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+        .close:hover {
+            transform: scale(1.2);
+            color: #fff000;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Les archives de MaxLananas</h1>
+<div class="gallery" id="gallery"></div>
+
+<!-- Boîte modale pour afficher les images en grand -->
+<div class="modal" id="modal">
+    <span class="close" id="close">&times;</span>
+    <img id="modalImg" src="" alt="">
+</div>
+
+<script>
+    const photos = [
+        { src: "2024-10-16_19.12.10.png", title: "Le Mcdo de 6tern" },
+        { src: "2024-10-15_15.58.36.png", title: "Plus belle F1 de BTE" },
+        { src: "2024-10-14_18.02.53.png", title: "Le bateau de Sky" },
+        { src: "2024-10-14_16.45.06.png", title: "La voiture billard" },
+        { src: "2024-10-14_15.47.50.png", title: "El maison" },
+        { src: "2024-10-13_17.56.10.png", title: "6tern place de l'endstone" },
+        { src: "2024-10-09_18.21.54.png", title: "Bruh (il m'ont fait crash)" },
+        { src: "2024-10-07_16.23.42.png", title: "Le jour et la nuit" },
+        { src: "2024-10-03_16.10.59.png", title: "La tour eiffeil original" },
+        { src: "2024-10-02_18.12.31.png", title: "Skynight promet des choses entre guillemet" },
+        { src: "2024-10-01_16.45.20.png", title: "La maison de Onoya" },
+        { src: "2024-09-01_17.31.55.png", title: "POV : La connection en Bretagne" },
+        { src: "2024-06-22_12.43.34.png", title: "Sousou en prison" },
+        { src: "2024-06-02_17.56.47.png", title: "Defroost la salade" },
+        { src: "2024-05-25_20.24.58.png", title: "Youpiiiiiiiiiii !" },
+        { src: "2024-05-15_17.08.45.png", title: "Vroum vroum sousou" },
+        { src: "2024-04-27_17.54.29.png", title: "L0pal et Dstar sont trés trés proche" },
+        { src: "2024-04-27_17.35.55.png", title: "Reno et SirAndouillette s'aiment bien" },
+    ];
+
+    const gallery = document.getElementById('gallery');
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const closeBtn = document.getElementById('close');
+    const variants = ['variant1', 'variant2', 'variant3', 'variant4', 'variant5'];
+
+    photos.forEach(photo => {
+        const photoContainer = document.createElement('div');
+        const randomVariant = variants[Math.floor(Math.random() * variants.length)];
+        photoContainer.classList.add('photo-container', randomVariant);
+
+        const img = document.createElement('img');
+        img.src = photo.src;
+        img.alt = photo.title;
+        img.onclick = () => {
+            modal.style.display = "flex";
+            modal.classList.add("show");
+            modalImg.src = photo.src;
+        };
+
+        const title = document.createElement('div');
+        title.classList.add('photo-title');
+        title.textContent = photo.title;
+
+        photoContainer.appendChild(img);
+        photoContainer.appendChild(title);
+        gallery.appendChild(photoContainer);
+    });
+
+    closeBtn.onclick = () => {
+        modal.style.display = "none";
+        modal.classList.remove("show");
+    };
+
+    window.onclick = (event) => {
+        if (event.target === modal) {
+            modal.style.display = "none";
+            modal.classList.remove("show");
+        }
+    };
+</script>
+
+</body>
+</html>
