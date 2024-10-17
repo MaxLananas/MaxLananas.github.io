@@ -6,21 +6,53 @@
     <title>Archive de Souvenirs</title>
     <style>
         body {
-            font-family: 'Lato', sans-serif;
-            background: url('https://www.transparenttextures.com/patterns/stardust.png'), linear-gradient(135deg, #1b2735, #090a0f);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            margin: 0;
-            color: #eee;
-        }
+    font-family: 'Lato', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: 0;
+    transition: background 0.5s, color 0.5s;
+    background: url('./Space (1).png') no-repeat center center fixed;
+    background-size: cover; /* Ajuste la taille de l'image pour qu'elle couvre tout l'écran */
+    color: #eee;
+}
+
+body.light {
+    background: url('./Space (2).png') no-repeat center center fixed;
+    background-size: cover; /* Garde le même réglage pour le mode clair */
+    color: #333;
+}
+
+
         h1 {
             color: #ffce00;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
             font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            animation: neon-glow 2s infinite alternate;
         }
+        @keyframes neon-glow {
+            from { text-shadow: 0 0 10px #ffce00, 0 0 20px #ffce00; }
+            to { text-shadow: 0 0 20px #fff, 0 0 30px #ffce00, 0 0 40px #ffce00; }
+        }
+
+        .toggle-theme {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 30px;
+            background: none;
+            border: none;
+            color: #ffce00;
+            transition: color 0.3s;
+        }
+        .toggle-theme:hover {
+            color: #fff000;
+        }
+
         .gallery {
             display: flex;
             flex-wrap: wrap;
@@ -28,24 +60,25 @@
             gap: 40px;
             max-width: 900px;
         }
+
         .photo-container {
             position: relative;
             width: 220px;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            transition: transform 0.6s ease, box-shadow 0.4s ease;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             border: 4px solid rgba(255, 255, 255, 0.15);
+            cursor: pointer;
         }
         .photo-container:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
         }
         .photo-container img {
             width: 100%;
             height: auto;
             border-radius: 15px;
-            cursor: pointer;
         }
         .photo-title {
             position: absolute;
@@ -59,12 +92,6 @@
             border-radius: 0 0 15px 15px;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
         }
-        
-        .variant1 { border-color: rgba(255, 206, 0, 0.3); }
-        .variant2 { border-color: rgba(220, 220, 220, 0.3); }
-        .variant3 { border-color: rgba(150, 150, 200, 0.3); }
-        .variant4 { border-color: rgba(125, 175, 125, 0.3); }
-        .variant5 { border-color: rgba(240, 240, 240, 0.3); }
 
         .modal {
             display: none;
@@ -77,16 +104,11 @@
             background-color: rgba(0, 0, 0, 0.8);
             justify-content: center;
             align-items: center;
-            transition: opacity 0.4s ease;
         }
         .modal img {
             max-width: 80%;
             max-height: 80%;
             border-radius: 15px;
-            transition: transform 0.4s ease;
-        }
-        .modal.show img {
-            transform: scale(1.05);
         }
         .close {
             position: absolute;
@@ -95,22 +117,32 @@
             font-size: 40px;
             color: #ffce00;
             cursor: pointer;
-            transition: transform 0.2s ease, color 0.2s ease;
         }
-        .close:hover {
-            transform: scale(1.2);
-            color: #fff000;
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            font-size: 50px;
+            color: #ffce00;
+            cursor: pointer;
+            padding: 10px;
+            transform: translateY(-50%);
         }
+        .prev { left: 20px; }
+        .next { right: 20px; }
     </style>
 </head>
 <body>
+
+<button class="toggle-theme" id="toggleTheme">🌙</button>
 
 <h1>Les archives de MaxLananas</h1>
 <div class="gallery" id="gallery"></div>
 
 <div class="modal" id="modal">
     <span class="close" id="close">&times;</span>
+    <span class="prev" id="prev">&#10094;</span>
     <img id="modalImg" src="" alt="">
+    <span class="next" id="next">&#10095;</span>
 </div>
 
 <script>
@@ -134,45 +166,64 @@
         { src: "2024-04-27_17.54.29.png", title: "L0pal et Dstar sont trés trés proche" },
         { src: "2024-04-27_17.35.55.png", title: "Reno et SirAndouillette s'aiment bien" },
     ];
-
+    
     const gallery = document.getElementById('gallery');
     const modal = document.getElementById('modal');
     const modalImg = document.getElementById('modalImg');
     const closeBtn = document.getElementById('close');
-    const variants = ['variant1', 'variant2', 'variant3', 'variant4', 'variant5'];
+    const toggleTheme = document.getElementById('toggleTheme');
+    const prev = document.getElementById('prev');
+    const next = document.getElementById('next');
+    
+    let currentIndex = 0;
 
-    photos.forEach(photo => {
+    photos.forEach((photo, index) => {
         const photoContainer = document.createElement('div');
-        const randomVariant = variants[Math.floor(Math.random() * variants.length)];
-        photoContainer.classList.add('photo-container', randomVariant);
-
+        photoContainer.classList.add('photo-container');
         const img = document.createElement('img');
         img.src = photo.src;
         img.alt = photo.title;
-        img.onclick = () => {
-            modal.style.display = "flex";
-            modal.classList.add("show");
-            modalImg.src = photo.src;
-        };
-
+        img.onclick = () => openModal(index);
         const title = document.createElement('div');
         title.classList.add('photo-title');
         title.textContent = photo.title;
-
         photoContainer.appendChild(img);
         photoContainer.appendChild(title);
         gallery.appendChild(photoContainer);
     });
 
-    closeBtn.onclick = () => {
+    const openModal = (index) => {
+        modal.style.display = "flex";
+        modalImg.src = photos[index].src;
+        currentIndex = index;
+    };
+
+    const closeModal = () => {
         modal.style.display = "none";
-        modal.classList.remove("show");
+    };
+
+    const showNext = () => {
+        currentIndex = (currentIndex + 1) % photos.length;
+        modalImg.src = photos[currentIndex].src;
+    };
+
+    const showPrev = () => {
+        currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+        modalImg.src = photos[currentIndex].src;
+    };
+
+    closeBtn.onclick = closeModal;
+    next.onclick = showNext;
+    prev.onclick = showPrev;
+
+    toggleTheme.onclick = () => {
+        document.body.classList.toggle('light');
+        toggleTheme.textContent = document.body.classList.contains('light') ? "☀️" : "🌙";
     };
 
     window.onclick = (event) => {
         if (event.target === modal) {
-            modal.style.display = "none";
-            modal.classList.remove("show");
+            closeModal();
         }
     };
 </script>
